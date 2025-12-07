@@ -1,0 +1,29 @@
+# Systemd service file for Risk Analysis Backend
+# Place this file in: /etc/systemd/system/risk-analysis.service
+
+[Unit]
+Description=Risk Analysis FastAPI Backend
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/risk-analysis
+Environment="PATH=/var/www/risk-analysis/venv/bin"
+ExecStart=/var/www/risk-analysis/venv/bin/python main.py
+
+# Restart policy
+Restart=always
+RestartSec=10
+
+# Security
+NoNewPrivileges=true
+PrivateTmp=true
+
+# Logging
+StandardOutput=append:/var/log/risk-analysis/access.log
+StandardError=append:/var/log/risk-analysis/error.log
+
+[Install]
+WantedBy=multi-user.target
