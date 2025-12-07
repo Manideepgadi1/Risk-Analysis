@@ -1,0 +1,30 @@
+# Systemd service file for Riskometer Backend
+# Place this file in: /etc/systemd/system/riskometer.service
+
+[Unit]
+Description=Riskometer FastAPI Backend
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/riskometer
+Environment="PATH=/var/www/riskometer/venv/bin"
+Environment="PORT=8006"
+ExecStart=/var/www/riskometer/venv/bin/python main.py
+
+# Restart policy
+Restart=always
+RestartSec=10
+
+# Security
+NoNewPrivileges=true
+PrivateTmp=true
+
+# Logging
+StandardOutput=append:/var/log/riskometer/access.log
+StandardError=append:/var/log/riskometer/error.log
+
+[Install]
+WantedBy=multi-user.target
