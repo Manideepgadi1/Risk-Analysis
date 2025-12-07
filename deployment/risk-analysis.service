@@ -11,6 +11,7 @@ User=www-data
 Group=www-data
 WorkingDirectory=/var/www/risk-analysis
 Environment="PATH=/var/www/risk-analysis/venv/bin"
+Environment="PORT=8006"
 ExecStart=/var/www/risk-analysis/venv/bin/python main.py
 
 # Restart policy
